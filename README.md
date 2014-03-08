@@ -23,4 +23,3 @@ pyro2927, joseph@pintozzi.com
 ## License
 
 ImgurAPIKit is available under the MIT license. See the LICENSE file for more info.
-
