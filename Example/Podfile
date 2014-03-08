@@ -1,0 +1,7 @@
+pod "ImgurAPIKit", :path => "../ImgurAPIKit.podspec"
+
+target "Demo" do
+end
+
+target "DemoTests" do
+end
