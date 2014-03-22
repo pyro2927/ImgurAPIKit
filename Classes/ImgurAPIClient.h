@@ -31,7 +31,7 @@ typedef void (^IAKCompletionBlock)(NSError *error);
 - (void)configureWithResponseDictionary:(NSDictionary*)responseDictionary;
 
 //Upload files
-- (void)uploadImageWithFileString:(NSString*)filePath completionBlock:(IAKUploadCompletionBlock)completionBlock;
+- (void)uploadImageWithFileUrl:(NSURL*)fileUrl completionBlock:(IAKUploadCompletionBlock)completionBlock;
 - (void)uploadImageWithImageData:(NSData*)imageData completionBlock:(IAKUploadCompletionBlock)completionBlock;
 
 @end

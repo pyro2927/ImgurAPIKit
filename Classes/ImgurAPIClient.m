@@ -16,10 +16,10 @@
 	{
         self.requestSerializer = [AFHTTPRequestSerializer serializer];
         [self.requestSerializer setValue:[@"Client-ID " stringByAppendingString:clientId] forHTTPHeaderField:@"Authorization"];
+        self.responseSerializer = [AFJSONResponseSerializer serializer];
         self.clientId = clientId;
         self.clientSecret = clientSecret;
 	}
-    
     return self;
 }
 
@@ -103,19 +103,20 @@
  }
  */
 
-- (void)uploadImageWithFileString:(NSString*)filePath completionBlock:(IAKUploadCompletionBlock)completionBlock{
-    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+- (void)uploadImageWithFileUrl:(NSURL*)fileUrl completionBlock:(IAKUploadCompletionBlock)completionBlock{
+    NSData *fileData = [NSData dataWithContentsOfURL:fileUrl];
+    NSString *filePath = [fileUrl absoluteString];
     NSString *fileName = [[filePath componentsSeparatedByString:@"/"] lastObject];
     NSString *mimeType = [@"image/" stringByAppendingString:[[filePath componentsSeparatedByString:@"."] lastObject]];
     [self uploadImageWithData:fileData fileName:fileName mimeType:mimeType completionBlock:completionBlock];
 }
 
 - (void)uploadImageWithImageData:(NSData*)imageData completionBlock:(IAKUploadCompletionBlock)completionBlock{
-    [self uploadImageWithData:imageData fileName:@"image.gif" mimeType:@"image/gif" completionBlock:completionBlock];
+    [self uploadImageWithData:imageData fileName:@"image.jpg" mimeType:@"image/jpg" completionBlock:completionBlock];
 }
 
 - (void)uploadImageWithData:(NSData*)data fileName:(NSString*)fileName mimeType:(NSString*)mimeType completionBlock:(IAKUploadCompletionBlock)completionBlock{
-    [self POST:@"/3/image" parameters:@{@"type": @"file"} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [self POST:@"/3/upload.json" parameters:@{@"type": @"file"} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:data name:@"image" fileName:fileName mimeType:mimeType];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Image uploaded!");
