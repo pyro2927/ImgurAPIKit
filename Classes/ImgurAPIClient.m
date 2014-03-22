@@ -11,7 +11,7 @@
 @implementation ImgurAPIClient
 
 - (id)initWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret{
-    return [super initWithBaseURL:[NSURL URLWithString:@"https://api.imgur.com/"]];
+    return [self initWithBaseURL:[NSURL URLWithString:@"https://api.imgur.com/"] clientId:clientId clientSecret:clientSecret];
 }
 
 - (id)initWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret mashapeKey:(NSString*)mashapeKey{
