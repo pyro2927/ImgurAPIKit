@@ -23,6 +23,9 @@ typedef void (^IAKCompletionBlock)(NSError *error);
 
 - (id)initWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret;
 
+//used for production apps
+- (id)initWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret mashapeKey:(NSString*)mashapeKey;
+
 //login
 - (NSURL *)oauthURLWithRedirectURI:(NSString *)redirectURI;
 - (AFHTTPRequestOperation *)refreshAccessToken:(NSString*)refreshToken completion:(IAKResponseCompletionBlock)completion;

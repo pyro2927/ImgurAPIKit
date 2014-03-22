@@ -10,24 +10,28 @@
 
 @implementation ImgurAPIClient
 
-- (id)initWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret
-{
-    if (self = [super initWithBaseURL:[NSURL URLWithString:@"https://api.imgur.com/"]])
+- (id)initWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret{
+    return [super initWithBaseURL:[NSURL URLWithString:@"https://api.imgur.com/"]];
+}
+
+- (id)initWithClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret mashapeKey:(NSString*)mashapeKey{
+    if (self = [self initWithBaseURL:[NSURL URLWithString:@"https://imgur-apiv3.p.mashape.com/"] clientId:clientId clientSecret:clientSecret])
 	{
-        self.requestSerializer = [AFHTTPRequestSerializer serializer];
-        [self.requestSerializer setValue:[@"Client-ID " stringByAppendingString:clientId] forHTTPHeaderField:@"Authorization"];
-        self.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.clientId = clientId;
-        self.clientSecret = clientSecret;
+        [self.requestSerializer setValue:mashapeKey forHTTPHeaderField:@"X-Mashape-Authorization"];
 	}
     return self;
 }
 
-- (id)initWithBaseURL:(NSURL *)url{
+- (id)initWithBaseURL:(NSURL *)url clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret{
     self = [super initWithBaseURL:url];
     if (!self) {
         return nil;
     }
+    self.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [self.requestSerializer setValue:[@"Client-ID " stringByAppendingString:clientId] forHTTPHeaderField:@"Authorization"];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    self.clientId = clientId;
+    self.clientSecret = clientSecret;
     return self;
 }
 
@@ -36,7 +40,6 @@
 - (NSURL *)oauthURLWithRedirectURI:(NSString *)redirectURI{
     NSParameterAssert(redirectURI);
     NSAssert(_clientId != nil, @"You must first set a clientId");
-    //https://api.imgur.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&response_type=REQUESTED_RESPONSE_TYPE
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://api.imgur.com/oauth2/authorize?response_type=token&client_id=%@", _clientId]];
 }
 
