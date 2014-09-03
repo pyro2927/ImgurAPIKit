@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "An API kit that allows you to easily interact with Imgur"
   s.description      = "Drop in, register for your API keys, and get to work!"
-  s.homepage         = "http://EXAMPLE/NAME"
+  s.homepage         = "https://github.com/pyro2927/ImgurAPIKit"
   s.license          = 'MIT'
   s.author           = { "pyro2927" => "joseph@pintozzi.com" }
-  s.source           = { :git => "http://EXAMPLE/NAME.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/pyro2927/ImgurAPIKit.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/pyro2927'
 
   s.ios.deployment_target = '7.0'
